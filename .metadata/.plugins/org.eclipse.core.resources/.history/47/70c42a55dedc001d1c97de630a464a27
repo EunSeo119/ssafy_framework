@@ -1,0 +1,5 @@
+package com.ssafy.first.xml.controller;
+
+public class BoardController {
+
+}

@@ -1,0 +1,6 @@
+package com.ssafy.first.annotation.model.dao;
+
+@Repository
+public class BoardDaoImpl implements BoardDao{
+
+}

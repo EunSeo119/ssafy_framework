@@ -1,0 +1,6 @@
+//com.springsource.config.ui.prefs.activePageIndex\:/first-spring/src/main/resources/annotation/first-exam.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+//com.springsource.config.ui.prefs.activePageIndex\:/first-spring/src/main/resources/first-exam.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+//com.springsource.config.ui.prefs.activePageIndex\:/first-spring/src/main/resources/xml/first-exam.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+//com.springsource.config.ui.prefs.activePageIndex\:/first-spring/src/main/resources/xml/first-exam2.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+//com.springsource.config.ui.prefs.activePageIndex\:/hello_di/src/com/ssafy/hello/di4/xml/applicationContext.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+eclipse.preferences.version=1
