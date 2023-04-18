@@ -2,11 +2,13 @@
 <section name="Workbench">
 	<section name="wizardPage">
 		<list key="groupId">
+			<item value="spring_aop"/>
 			<item value="hello_di"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="spring_aop"/>
 			<item value="hello_di"/>
 		</list>
 		<list key="version">

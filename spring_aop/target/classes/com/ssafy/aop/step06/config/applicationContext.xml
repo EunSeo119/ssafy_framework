@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<context:component-scan base-package="com.ssafy.board,com.ssafy.util,com.ssafy.aop.step06.annotation">
+	</context:component-scan>
+	
+	<!-- 위 컴포넌트 스캔을 넣으면 지울 수 있다!
+	<bean id="dbUtil" class="com.ssafy.util.DBUtil"/>
+	
+	<bean id="boardDao" class="com.ssafy.board.model.dao.BoardDaoImpl">
+		<constructor-arg ref="dataSource"/>
+		<constructor-arg ref="dbUtil"/>
+	</bean>
+	
+	<bean id="boardService" class="com.ssafy.board.model.service.BoardServiceImpl">
+		<constructor-arg ref="boardDao"/>
+	</bean>
+	
+	<bean id="boardController" class="com.ssafy.board.controller.BoardController">
+		<constructor-arg ref="boardService"/>
+	</bean>
+	
+	<bean id="ptAdvice" class="com.ssafy.aop.step06.annotation.PerformanceTraceAdvice"/>
+	 -->
+	
+	
+	
+	<!-- 
+	<aop:config>
+		<aop:aspect ref="boardController">
+			<aop:pointcut expression="execution(public * com.ssafy.board..*Dao.*(..))" id="profileTarget"/>
+			<aop:around method="trace" pointcut-ref="profileTarget"/>
+		</aop:aspect>
+	</aop:config>
+	
+	위가 아래를 바꾼 것이당!!
+	
+	@Aspect
+	public class PerformanceTraceAdvice {
+	
+		@Pointcut("execution(public * com.ssafy.board..*Dao.*(..))")
+		public void profileTarget() {
+		}
+	
+		@Around("profileTarget()")
+		public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
+	 -->
+	
+	
+	<!-- ComponentScan 으로 해결이 안된다... (라이브러리 제공..) -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ssafyweb?serverTimezone=UTC&amp;useUniCode=yes&amp;characterEncoding=UTF-8"/>
+		<property name="username" value="ssafy"/>
+		<property name="password" value="ssafy"/>
+	</bean>
+	
+	<!-- @Aspect, @Defore, .. 해석하기 위해서... -->
+	<aop:aspectj-autoproxy/>
+	
+
+</beans>
