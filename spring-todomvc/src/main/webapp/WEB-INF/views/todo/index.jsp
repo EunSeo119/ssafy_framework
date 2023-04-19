@@ -19,6 +19,7 @@
 		<section class="todoapp">
 			<header class="header">
 				<h1>오늘의 할일</h1>
+				<a href="login" class="">로그인</a>
 				<form action="regist" method="post">
 					<input type="text" class="new-todo" placeholder="오늘의 할일을 적으세요?" 
 					       name="content" autofocus>
