@@ -11,5 +11,28 @@
 
 	<%-- request 영역에 users로 등록된 리스트를 반복문을 이용해 출력한다. --%>
 	<!-- 코드작성 -->
+	<form action="multi-delete">
+		<table>
+			<tr>
+				<th>아이디</th>
+				<th>비밀번호</th>
+				<th>이름</th>
+				<th>이메일</th>
+				<th>나이</th>
+			</tr>
+			<c:forEach var="user" items="${users}">
+				<tr>
+					<td>${user.id}</td>
+					<td>${user.password}</td>
+					<td>${user.name}</td>
+					<td>${user.email}</td>
+					<td>${user.age}</td>
+				</tr>		
+			</c:forEach>
+		</table>
+	</form>
+	
+	<a href="/">홈으로</a>
+	<a href="regist">추가등록</a>	
 </body>
 </html>
