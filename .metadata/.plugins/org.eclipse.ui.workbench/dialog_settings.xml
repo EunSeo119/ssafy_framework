@@ -26,6 +26,7 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\SSAFY\Downloads\spring_hw_03_2-master"/>
 			<item value="C:\Users\SSAFY\Downloads\board"/>
 			<item value="C:\Users\SSAFY\Downloads\spring_aop"/>
 			<item value="C:\SSAFY\0417_DI_배포\hello_di_배포\src"/>

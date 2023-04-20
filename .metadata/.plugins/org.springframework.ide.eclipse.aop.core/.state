@@ -5,6 +5,7 @@
 <aop-project name="first-spring"/>
 <aop-project name="board1_springmvc"/>
 <aop-project name="sample-exam"/>
+<aop-project name="spring_hw_03_2"/>
 <aop-project name="spring-todomvc"/>
 <aop-project name="hello_di"/>
 <aop-project name="spring_aop"/>
