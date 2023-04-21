@@ -15,5 +15,5 @@
 		<property name="username" value="ssafy"/>
 		<property name="password" value="ssafy"/>
 	</bean>
-	<context:component-scan base-package="com.ssafy.sample.model"/>
+	<context:component-scan base-package="com.ssafy.shop.model"/>
 </beans>
