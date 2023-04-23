@@ -3,6 +3,14 @@ package com.ssafy.todomvc.model;
 public class Todo {
 	private int no;
 	private String content;
+	private String userId;
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public int getNo() {
 		return no;
 	}

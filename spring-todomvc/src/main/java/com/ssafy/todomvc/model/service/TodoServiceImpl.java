@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafy.todomvc.model.Member;
 import com.ssafy.todomvc.model.Todo;
 import com.ssafy.todomvc.model.dao.TodoDao;
 
@@ -16,13 +17,13 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public void clearTodo() throws SQLException {
-		todoDao.deleteAllTodo();
+	public void clearTodo(String userId) throws SQLException {
+		todoDao.deleteAllTodo(userId);
 	}
 	
 	@Override
-	public void deleteTodo(int no) throws SQLException {
-		todoDao.deleteTodo(no);
+	public void deleteTodo(int no, String userId) throws SQLException {
+		todoDao.deleteTodo(no, userId);
 	}
 
 	@Override
@@ -33,6 +34,11 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public List<Todo> listTodo() throws SQLException {
 		return todoDao.selectTodo();
+	}
+
+	@Override
+	public Member login(Member member) throws Exception {
+		return todoDao.selectLogin(member);
 	}
 }
 

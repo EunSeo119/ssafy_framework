@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
+import com.ssafy.todomvc.model.Member;
 import com.ssafy.todomvc.model.Todo;
 
 @Repository
@@ -22,22 +23,24 @@ public class TodoDaoImpl implements TodoDao {
 	}
 
 	@Override
-	public void deleteAllTodo() throws SQLException {
+	public void deleteAllTodo(String userId) throws SQLException {
 		try(
 			Connection con = dataSource.getConnection();
-			PreparedStatement pstmt = con.prepareStatement("delete from todo");
+			PreparedStatement pstmt = con.prepareStatement("delete from todo where user_id = ?");
 		){
+			pstmt.setString(1, userId);
 			pstmt.executeUpdate();
 		}
 	}
 	
 	@Override
-	public void deleteTodo(int no) throws SQLException {
+	public void deleteTodo(int no, String userId) throws SQLException {
 		try(
 			Connection con = dataSource.getConnection();
-			PreparedStatement pstmt = con.prepareStatement("delete from todo where no = ?");
+			PreparedStatement pstmt = con.prepareStatement("delete from todo where no = ? and user_id = ?");
 		){
 			pstmt.setInt(1, no);
+			pstmt.setString(2, userId);
 			pstmt.executeUpdate();
 		}
 	}
@@ -46,9 +49,10 @@ public class TodoDaoImpl implements TodoDao {
 	public void insertTodo(Todo todo) throws SQLException {
 		try(
 			Connection con = dataSource.getConnection();
-			PreparedStatement pstmt = con.prepareStatement("insert into todo(content) values(?)");
+			PreparedStatement pstmt = con.prepareStatement("insert into todo(content, user_id) values(?, ?)");
 		){
 			pstmt.setString(1, todo.getContent());
+			pstmt.setString(2, todo.getUserId());
 			pstmt.executeUpdate();
 		}
 	}
@@ -69,6 +73,28 @@ public class TodoDaoImpl implements TodoDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public Member selectLogin(Member member) throws SQLException {
+		try(
+			Connection con = dataSource.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(
+				"select id, name, password from user where id = ? and password = ?"
+			);
+		){
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPassword());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Member userInfo = new Member();
+				userInfo.setId(rs.getString("id"));
+				userInfo.setPassword(rs.getString("password"));
+				userInfo.setName(rs.getString("name"));
+				return userInfo;
+			}
+		}
+		return null;
 	}
 }
 

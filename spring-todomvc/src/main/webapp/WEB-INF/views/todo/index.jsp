@@ -19,11 +19,30 @@
 		<section class="todoapp">
 			<header class="header">
 				<h1>오늘의 할일</h1>
-				<a href="login" class="">로그인</a>
+				<c:if test="${not empty userInfo}">
+					<span>${userInfo.name}님 환영합니다.</span>
+					<a href="logout">로그아웃</a>
+				</c:if>
+				<c:if test="${empty userInfo}">
+					<form method="post" action="login">
+						<input type="text" name="id" /> 
+						<input type="password" name="password" />
+						<button>로그인</button>
+					</form>
+				</c:if>
+			<c:if test="${not empty userInfo}">
 				<form action="regist" method="post">
-					<input type="text" class="new-todo" placeholder="오늘의 할일을 적으세요?" 
-					       name="content" autofocus>
+					<input type="text" class="new-todo" placeholder="오늘의 할일을 적으세요?"
+						name="content" autofocus>
 				</form>
+			</c:if>	
+			<c:if test="${empty userInfo}">
+				<form action="regist" method="post">
+					<input type="text" class="new-todo" placeholder="오늘의 할일을 적으세요?"
+						name="content" readonly autofocus>
+					<%-- <input type="hidden" name="userId" value="${userInfo.id}"/> --%>
+				</form>
+			</c:if>	
 			</header>
 			<section class="main">
 				<ul class="todo-list">
@@ -31,7 +50,9 @@
 					<li>
 						<div class="view">
 							<label>${todo.content}</label>
-							<a href="delete?no=${todo.no}" class="destroy"></a>
+							<c:if test="${not empty userInfo}">
+								<a href="delete?no=${todo.no}&userId=${userInfo.id}" class="destroy"></a>
+							</c:if>
 						</div>
 					</li>	
 				</c:forEach>				
@@ -39,7 +60,9 @@
 			</section>
 			<footer class="footer">
 				<span class="todo-count">전체 <strong>${list.size()}</strong>개</span>
-				<a href="clear" class="clear-completed">전체 지우기</a>
+				<c:if test="${not empty userInfo}">
+					<a href="clear" class="clear-completed">전체 지우기</a>
+				</c:if>
 			</footer>
 		</section>
 	</body>
