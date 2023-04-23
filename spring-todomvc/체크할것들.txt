@@ -11,3 +11,12 @@
     
 4. web.xml
     - 한글 인코딩 추가하기    
+    
+    
+    
+    
+------------
+1. pom.xml → 버전, 이름 / (근데 이거 그냥 연습한거 복붙하셈 다른 dependency mysql이나 jdbc 같은거 추가로 필요함!) update project
+2. servlet-context.xml → controller 지정
+3. root-context.xml → context 추가! -> 페이지 다른거 다 추가 db같은거
+4. web.xml 한글 인코딩 추가!
