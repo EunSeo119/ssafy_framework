@@ -114,8 +114,9 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="C:\Users\eunseo\Downloads\송찬환"/>
+			<item value="C:\Users\SSAFY\Downloads\Spring-Test"/>
 			<item value="C:\SSAFY\workspace\07-Framework\ssafy_framework"/>
+			<item value="C:\Users\eunseo\Downloads\송찬환"/>
 			<item value="C:\Users\SSAFY\Downloads\board"/>
 			<item value="C:\Users\SSAFY\Downloads\spring-todomvc"/>
 		</list>

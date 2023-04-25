@@ -16,6 +16,7 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\SSAFY\Downloads\0424_배포\mybatis_test_배포"/>
 			<item value="C:\Users\SSAFY\Downloads\월말평가_9기_sample 제공"/>
 			<item value="C:\Users\SSAFY\Downloads\board2_file_interceptor"/>
 			<item value="C:\Users\SSAFY\Downloads\spring_hw_03_2-master"/>
