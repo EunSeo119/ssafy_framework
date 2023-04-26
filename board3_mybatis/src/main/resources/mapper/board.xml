@@ -15,6 +15,7 @@
 	</resultMap>
 	
 	<resultMap type="boardDto" id="viewArticle" extends="article">
+		<!-- property : dto에서의 이름, column : 조인시킬 컬럼, select : 해당 id 실행 -->
 		<collection property="fileInfos" column="article_no" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>
 	</resultMap>
 	

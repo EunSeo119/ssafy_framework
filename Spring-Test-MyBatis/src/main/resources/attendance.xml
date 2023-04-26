@@ -1,67 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace에 고유한 이름을 주기 위해 -->
+<!-- 
+    List<Attendance> selectAttendance(User user) throws SQLException;
+    void deleteAttendance(String ano) throws SQLException;
+    void insertAttendance(Attendance attendance) throws SQLException;
+    Attendance selectAttendanceByPK(String ano) throws SQLException;
+ -->
+
+
 <mapper namespace="com.ssafy.springtest.model.dao.AttendanceDao">
-	<!-- 
-	List<Attendance> selectAttendance(User user) throws SQLException;
-	void deleteAttendance(String ano) throws SQLException;
-	void insertAttendance(Attendance attendance) throws SQLException;
-	Attendance selectAttendanceByPK(String ano) throws SQLException;
-	 -->
-	<select id="selectAttendance" parameterType="user" resultType="attendance"> <!-- 별칭으로 간단하게 type을 줌! -->
-		select ano, userid, issuedate, issue
-		from attendance
-		<if test="position == '교육생'">
-			where userid = #{userid}
-		</if>
-	</select>
-	
-	<resultMap type="attendance" id="attendanceDetailMap">
-		<result column="ano" property="ano" />
-		<result column="userid" property="userid" />
-		<result column="issuedate" property="issuedate" />
-		<result column="issue" property="issue" />
-		<association property="user" column="userid" select="selectUserByPK" />
-	</resultMap>
-	
-	<select id="selectAttendanceByPK" parameterType="string" resultMap="attendanceDetailMap">
-		
-		select ano, userid, issuedate, issue
-		from attendance 
-		where ano = #{ano}
-	</select>
-	
-	<select id="selectUserByPK" parameterType="string" resultType="user">
-		select name, userid, rname, rclass, possition
-		from userinfo
-		where userid = #{userid}
-	</select>
-	
-	<insert id="insertAttendance" parameterType="attendance">
-		insert into attendance(
-			ano, issuedate, issue, userid
-		) values(
-			<!-- #{attendance.getAno()} 원 이름은 이거 -->
-			#{ano}, #{issuedate}, #{issue}, #{userid}
-		)
-	</insert>
-	
-	<delete id="deleteAttendance" parameterType="string">
-		delete 
-		from attendance 
-		<!-- where ano = #{ano}  -->
-		where ano in (
-		
-		<!-- 
-		아래 foreach의 item은
-		<c:forEach var="" items="" 와 같은 느낌
-		 -->
-		<foreach item="ano" collection="anos" open="(" close=")"  separator=",">
-			{ano}
-		</foreach>
-		)
-	</delete>
-	
+
+    <!-- resultType 하나의 행에 대한 타입을 지정해주면된다 attendance는 mybatis에서 config에서 별칭으로 설정 해두었다 (패키지.class까지 해야한다!)-->
+    <!-- 쿼리문을 동적으로 만들고 처리할수있도록 jstl처럼 if 와 foreach가 있다 -->
+    <!-- select문 안에 prameterType을 선언후  if를안에 사용하고 if의 속성은 user안에 있는거라고 생각한다 -->
+    <select id="selectAttendance" parameterType="user" resultType="attendance">
+        select ano, userid, issuedate, issue 
+          from attendance
+        <if test ="position == '교육생'">
+            where userid = #{userid}
+        </if>
+    </select>
+    
+    
+    <!-- resultMap으로 해서  selectAttendanceByPK 가 실행될때 selectUserByPK 를 실행시켜 값을 동시에 받아온다 -->
+    <select id="selectAttendanceByPK" parameterType="string" resultMap="attendanceDetailMap">
+
+        select ano, userid, issuedate, issue
+            from attendance 
+         where ano = #{ano}
+    </select>
+    
+    
+    <!-- 내가 쿼리문을 실행해서 최종적으로 받고싶은걸 type으로 준다  -->
+    <resultMap type="attendance" id="attendanceDetailMap">
+        <!-- 
+            column - SQL에서 받아오는 값
+            property - attendance에 어디에 설정할꺼야 ?
+            
+            column과 property가 같으면 result를 생략이 가능하다!! 
+            
+         -->
+        <result column="ano" property="ano"/>
+        <result column="userid" property="userid"/>
+        <result column="issuedate" property="issuedate"/>
+        <result column="issue" property="issue"/>
+        <!-- selectUserByPk를 실행하고 (column) userid로 매핑해서 dettendance의 user에 넣어줄게 -->
+        <association property="user"  column="userid" select="selectUserByPK"/>
+        <!-- 1:1 의 관계에서는  <association> 을 사용한다 -->
+        <!-- 1:N 의 관계에서는 <collection> 을 사용   -->
+    </resultMap>
+    
+    
+    
+    
+    <select id="selectUserByPK" parameterType="string" resultType="user">
+
+        select name, userpw, userid, rname, rclass, postion
+            from userinfo
+         where userid = #{userid}
+        
+    </select>    
+    
+    
+    <!-- #{}안에 parameterType에 선언한 class의 getter 메소드 이름을 넣어주면 된다! 선언법 EL처럼 get 제거 맨앞 소문자로 변경 -->
+    <insert id="insertAttendance" parameterType="attendance">
+        insert into attendance(
+            ano, issuedate, issue, userid 
+            ) values( 
+                #{ano}, #{issuedate}, #{issue}, #{userid}
+            )
+    </insert>    
+    
+    <!-- #{} 한개일떄는 아무 이름 가능하나 논리적으로 가독성을 위해 받는값으로 맞춰주는게 좋다 여러개일땐 맞춰줘야함!! -->
+    <!-- parameterType 은 아예 뺴버리자 - 알아서 받아줘! -->
+    <delete id="deleteAttendance">
+        delete 
+            from attendance 
+            where ano in
+            <foreach item="ano" collection="anos" open="(" close=")" separator=",">
+                ${ano}
+            </foreach>
+            
+            <!-- 
+            where ano in ('a123' , 'b123' ) 
+            
+            <c:forEach var ="ano"  items="anos" >
+            
+            foreach
+                item    - 변수 (c:에서의 var )
+                collection - (c:에서의 items )
+                open  - 반복문 시작할때 뭐로시작할거야?
+                close - 반복문이 끝나면 뭐를 줄래?
+                separator - 사이에 구분자를 뭐로 줄래 ?
+             -->
+            
+            
+    </delete>    
+
 </mapper>
