@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,19 +14,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.MemberDto;
 import com.ssafy.member.model.service.MemberService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 //@Controller
 @RequestMapping("/admin")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @Api(tags = {"회원관리"})
 public class AdminUserController {
 
@@ -73,6 +74,8 @@ public class AdminUserController {
 //		return memberService.listMember(null);
 //	}
 
+	@ApiOperation(value= "회원목록", notes = "회원의 <b>전체 목록</b>을 리턴합니다.")
+	@ApiResponses({@ApiResponse(code = 200, message = "회원목록 OK"), @ApiResponse(code = 500, message = "서버에러")})
 	@GetMapping(value = "/user")
 	public ResponseEntity<?> userList() {
 		logger.debug("userList call");
@@ -104,6 +107,9 @@ public class AdminUserController {
 		
 	}
 	
+	@ApiOperation(value= "회원정보", notes = "회원 한명의 <b>정보</b>을 리턴합니다.")
+	@ApiResponses({@ApiResponse(code = 200, message = "회원정보 OK"), @ApiResponse(code = 500, message = "서버에러")})
+	@ApiImplicitParams(@ApiImplicitParam(name = "userid", value = "검색 아이디", required = true, dataType = "String", paramType = "path"))
 	@GetMapping(value = "/user/{userid}")
 	public ResponseEntity<?> userInfo(@PathVariable("userid") String userId) {
 		logger.debug("userInfo userid : {}", userId);
