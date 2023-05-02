@@ -49,4 +49,13 @@
     <fullyQualifiedTypeName name="io.swagger.annotations.ApiImplicitParams"/>
     <fullyQualifiedTypeName name="io.swagger.annotations.ApiImplicitParam"/>
     <fullyQualifiedTypeName name="io.swagger.annotations.ApiModelProperty"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.test.context.SpringBootTest"/>
+    <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+    <fullyQualifiedTypeName name="com.ssafy.board.model.service.BoardServiceImplTest"/>
+    <fullyQualifiedTypeName name="org.slf4j.Logger"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.ssafy.board.model.BoardDto"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.DisplayName"/>
+    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
 </qualifiedTypeNameHistroy>

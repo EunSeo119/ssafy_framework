@@ -16,16 +16,19 @@
 	
 	<aop:aspectj-autoproxy/>
 	
-	<!-- <bean id="ds" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ssafyweb?serverTimezone=UTC&amp;useUniCode=yes&amp;characterEncoding=UTF-8"/>
 		<property name="username" value="ssafy"/>
 		<property name="password" value="ssafy"/>
-	</bean> -->
+	</bean>
 	
+	<!-- 커넥션 poll -->
+	<!--
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/ssafy"></property>
 	</bean>
+	-->
 	
 	<!-- <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
@@ -38,6 +41,8 @@
 		</property>
 	</bean> -->
 	
+	<!-- DataSource를 가지고 Mybatis 설정 -->
+	<!-- typeAliasesPackage 를 통해서 typeAliases 를설정 안해줘도 된다 ! 사용명은 EL 명처럼 -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="typeAliasesPackage" value="com.ssafy.*.model"/>
@@ -51,6 +56,7 @@
 	<!-- mybatis에서 제공하는 scan 태그를 통해 repository(Mapper) interface들의 위치를 지정. -->
 	<mybatis-spring:scan base-package="com.ssafy.*.model.mapper"/>
 	
+
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

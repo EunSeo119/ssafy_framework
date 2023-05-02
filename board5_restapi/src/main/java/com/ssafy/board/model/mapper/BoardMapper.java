@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.board.model.BoardDto;
+import com.ssafy.board.model.Comment;
 import com.ssafy.board.model.FileInfoDto;
 
 @Mapper
@@ -32,4 +33,11 @@ public interface BoardMapper {
 
 	List<FileInfoDto> fileInfoList(int articleNo) throws Exception;
 
+	void insertComment(Comment comment) throws SQLException;
+
+	List<Comment> listComment(int articleNo) throws SQLException;
+
+	void deleteComment(int commentNo) throws SQLException;
+
 }
+

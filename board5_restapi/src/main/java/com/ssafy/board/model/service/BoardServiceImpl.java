@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.board.model.BoardDto;
+import com.ssafy.board.model.Comment;
 import com.ssafy.board.model.FileInfoDto;
 import com.ssafy.board.model.mapper.BoardMapper;
 import com.ssafy.util.PageNavigation;
@@ -20,7 +21,6 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 
 	public BoardServiceImpl(BoardMapper boardMapper) {
-		super();
 		this.boardMapper = boardMapper;
 	}
 
@@ -108,6 +108,22 @@ public class BoardServiceImpl implements BoardService {
 			File file = new File(path + File.separator + fileInfoDto.getSaveFolder() + File.separator + fileInfoDto.getSaveFile());
 			file.delete();
 		}
+	}
+
+	@Override
+	public void writeComment(Comment comment) throws Exception {
+		boardMapper.insertComment(comment);
+		
+	}
+
+	@Override
+	public List<Comment> listComment(int articleNo) throws Exception {
+		return boardMapper.listComment(articleNo);
+	}
+
+	@Override
+	public void deleteComment(int commentNo) throws Exception {
+		boardMapper.deleteComment(commentNo);
 	}
 
 }

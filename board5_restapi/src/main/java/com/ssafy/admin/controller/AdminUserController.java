@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.member.model.MemberDto;
 import com.ssafy.member.model.service.MemberService;
 
-//@RestController
+//RestController를 여기에 선언하면 해당 Controller의 모든 메소드가 RestController 이다
+//CrossOrigin("*") -> 모든 Url에 대해서 오픈하겠다  / url과 메소드를 추가해서 url과 메소드만 허용하겠다! 로  설정가능
+@RestController
 @Controller
 @RequestMapping("/admin")
 @CrossOrigin("*")
@@ -37,32 +39,38 @@ public class AdminUserController {
 	public AdminUserController(MemberService memberService) {
 		this.memberService = memberService;
 	}
-
+	
+	
 	@RequestMapping(value = "/user", method = RequestMethod.GET, headers = { "Content-type=application/json" })
 	public List<MemberDto> userList() throws Exception {
 		List<MemberDto> list = memberService.listMember(null);
 		logger.debug("회원목록 : {}", list);
+		
 		return list;
 //        return memberService.listMember();
 	}
-
+	
+	
 	@RequestMapping(value = "/user", method = RequestMethod.POST, headers = { "Content-type=application/json" })
 	public List<MemberDto> userRegister(@RequestBody MemberDto memberDto) throws Exception {
 		memberService.joinMember(memberDto);
 		return memberService.listMember(null);
 	}
 
+	
 	@RequestMapping(value = "/user/{userid}", method = RequestMethod.GET, headers = { "Content-type=application/json" })
 	public MemberDto userInfo(@PathVariable("userid") String userid) throws Exception {
 		return memberService.getMember(userid);
 	}
-
+	
+	
 	@RequestMapping(value = "/user", method = RequestMethod.PUT, headers = { "Content-type=application/json" })
 	public List<MemberDto> userModify(@RequestBody MemberDto memberDto) throws Exception {
 		memberService.updateMember(memberDto);
 		return memberService.listMember(null);
 	}
-
+	
+	
 	@RequestMapping(value = "/user/{userid}", method = RequestMethod.DELETE, headers = {
 			"Content-type=application/json" })
 	public List<MemberDto> userDelete(@PathVariable("userid") String userid) throws Exception {
@@ -70,6 +78,15 @@ public class AdminUserController {
 		return memberService.listMember(null);
 	}
 
+	
+//  ResponseEntity 를 사용하면 상태 를 같이 전달할수있따 
+//	ResponseEntity<타입> (보낼꺼 , HttpStatus.OK)  -> 정상처리 
+//  ResponseEntity<void> ( HttpStatus.false)    -> 정상처리 X 
+//
+//  {userid}
+//   @PathVariable("userid")  - URL 경로에 있는 값을 파라미터로 추출
+	
+	
 //	@GetMapping(value = "/user")
 //	public ResponseEntity<?> userList() {
 //		logger.debug("userList call");
